@@ -8,7 +8,8 @@ const Object = require('./object'); // Your Mongoose model for objects
 const AuthObject = require('./auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+// Allow all origins (not recommended for production)
+app.use(cors());
 app.use(bodyParser.json());
 // Set up multer for handling image uploads if needed
 
