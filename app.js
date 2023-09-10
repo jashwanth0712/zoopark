@@ -85,7 +85,7 @@ app.post('/animals',authenticate, async (req, res) => {
       res.status(500).json({ error: 'Error creating animal' });
     }
   });
-  
+  app.get('/',(req,res)=>{return res.status(200).json({message:"hello"})})
   // Get a specific animal by ID
   app.get('/animals/:animalId',async (req, res) => {
     try {
