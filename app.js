@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 require('dotenv').config()
+const cors = require('cors');
 const Object = require('./object'); // Your Mongoose model for objects
 const AuthObject = require('./auth');
 const app = express();
