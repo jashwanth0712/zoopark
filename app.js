@@ -8,10 +8,20 @@ const Object = require('./object'); // Your Mongoose model for objects
 const AuthObject = require('./auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
-// Allow all origins (not recommended for production)
-app.use(cors());
-app.use(bodyParser.json());
-// Set up multer for handling image uploads if needed
+// Custom CORS headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Replace '*' with your specific origins if needed.
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+  next();
+});
+
+// Body parser middleware
+app.use(bodyParser.json());e uploads if needed
 
 // Connect to MongoDB Atlas
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -26,6 +36,7 @@ db.once('open', () => {
 });
   // Middleware for authentication
   const authenticate = async (req, res, next) => {
+    
     try {
       const { username, password } = req.body;
       const user = await AuthObject.findOne({username,password});
