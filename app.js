@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 // Set up multer for handling image uploads if needed
 
 // Connect to MongoDB Atlas
-mongoose.connect('mongodb+srv://jashwanth0712:Jashwanth12345@cluster0.nqmlvz3.mongodb.net/animal_details', {
+mongoose.connect('', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
