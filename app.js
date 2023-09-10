@@ -27,8 +27,8 @@ db.once('open', () => {
   const authenticate = async (req, res, next) => {
     try {
       const { username, password } = req.body;
-      const user = await AuthObject.findOne({ username, password });
-      
+      const user = await AuthObject.findOne({username,password});
+     
       if (!user) {
         return res.status(401).json({ error: 'Authentication failed' });
       }
@@ -44,7 +44,7 @@ db.once('open', () => {
 // Route to get and print the entire data in the "animals" collection
 app.get('/animals',async (req, res) => {
     try {
-      const animals = await AuthObject.find(); // Assuming your model is named "Object"
+      const animals = await Object.find(); // Assuming your model is named "Object"
       res.status(200).json(animals);
     } catch (error) {
       res.status(500).json({ error: 'Error retrieving animals' });
@@ -53,7 +53,7 @@ app.get('/animals',async (req, res) => {
 
   
 // Create a new animal
-app.post('/animals', async (req, res) => {
+app.post('/animals',authenticate, async (req, res) => {
     try {
       const {
         img_link,
@@ -87,7 +87,7 @@ app.post('/animals', async (req, res) => {
   });
   
   // Get a specific animal by ID
-  app.get('/animals/:animalId', async (req, res) => {
+  app.get('/animals/:animalId',async (req, res) => {
     try {
       const animal = await Object.findById(req.params.animalId);
       if (!animal) {
@@ -100,7 +100,7 @@ app.post('/animals', async (req, res) => {
   });
   
   // Update an existing animal by ID
-  app.put('/animals/:animalId', async (req, res) => {
+  app.put('/animals/:animalId',authenticate,async (req, res) => {
     try {
       const {
         img_link,
@@ -141,7 +141,7 @@ app.post('/animals', async (req, res) => {
   });
   
   // Delete an animal by ID
-  app.delete('/animals/:animalId', async (req, res) => {
+  app.delete('/animals/:animalId',authenticate, async (req, res) => {
     try {
       const deletedAnimal = await Object.findByIdAndDelete(req.params.animalId);
       if (!deletedAnimal) {
