@@ -19,9 +19,9 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+app.use(cors())
 // Body parser middleware
-app.use(bodyParser.json());e uploads if needed
+app.use(bodyParser.json());
 
 // Connect to MongoDB Atlas
 mongoose.connect(process.env.CONNECTION_STRING, {
